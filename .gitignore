@@ -28,6 +28,4 @@ Thumbs.db
 
 # Upload pengguna & artefak preview lokal
 /public/uploads
-/.freebuff/*.log
-/.freebuff/*.err
-/.freebuff/project-id
+/.freebuff/
