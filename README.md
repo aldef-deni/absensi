@@ -60,6 +60,23 @@ Buka **http://127.0.0.1:8000**.
 
 Catatan: bila biometrik aktif tapi wajah karyawan belum didaftarkan, check-in tetap dicatat (tanpa verifikasi) hingga wajahnya didaftarkan.
 
+## API Mobile (Sanctum)
+
+Aplikasi Android (`C:\Users\ade zulham\Downloads\absensi-mobile`) memakai endpoint JSON ini — token Bearer dari `/api/login`:
+
+| Method | Endpoint | Fungsi |
+|---|---|---|
+| POST | `/api/login` | Login → `{ token, user }` (user + info perusahaan) |
+| GET | `/api/me` | Data user yang login |
+| POST | `/api/logout` | Cabut token |
+| GET | `/api/attendance/today` | Status absensi hari ini + pengaturan perusahaan (radius, lock lokasi, biometrik) |
+| POST | `/api/attendance/check-in` | Check-in `{ latitude, longitude, face_verified, note }` — validasi radius & wajah sama seperti web |
+| POST | `/api/attendance/check-out` | Check-out `{ latitude, longitude, face_verified }` |
+| GET | `/api/attendance/history?month=YYYY-MM` | Riwayat absensi user |
+| GET/POST | `/api/leaves` | Daftar / buat pengajuan izin-cuti |
+
+Untuk diakses HP sungguhan: `php artisan serve --host=0.0.0.0 --port=8000`, lalu HP set URL `http://<IP-komputer>:8000`. Test: `tests/Feature/Api/MobileApiTest.php`.
+
 ## Teknis
 
 - Library biometrik: `face-api.js` + model (`tiny_face_detector`, `face_landmark_68`, `face_recognition`) di `public/vendor/face-api/` — tersimpan lokal, tidak butuh internet saat runtime.
