@@ -73,6 +73,24 @@
             </svg>
         </button>
 
+        @if($demoEmail)
+            {{-- Kolomnya diisi, bukan langsung dikirim: pengunjung tetap melihat
+                 kredensial yang dipakai dan bisa membatalkannya. --}}
+            <button type="button" onclick="isiDemo()"
+                class="mt-3 w-full inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl
+                       border border-primary-200 text-primary-700 text-sm font-semibold
+                       hover:bg-primary-50 transition-colors duration-200">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                          d="M9 3h6m-3 0v6m-4.5 3h9l1.5 9H6l1.5-9z" />
+                </svg>
+                Coba Demo
+            </button>
+            <p class="text-center text-xs text-gray-400 mt-2">
+                Masuk tanpa mendaftar. Isinya dikembalikan seperti semula setiap 24 jam.
+            </p>
+        @endif
+
         <p class="text-center text-sm text-gray-500 mt-6">
             Belum punya akun?
             <a href="{{ route('register') }}" class="font-semibold text-primary-600 hover:text-primary-700">
@@ -82,6 +100,14 @@
     </form>
 
     <script>
+        @if($demoEmail)
+        function isiDemo() {
+            document.getElementById('email').value = @json($demoEmail);
+            document.getElementById('password').value = @json($demoPassword);
+            document.querySelector('form button[type="submit"]').focus();
+        }
+        @endif
+
         function togglePasswordVisibility() {
             const input = document.getElementById('password');
             input.type = input.type === 'password' ? 'text' : 'password';
