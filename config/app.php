@@ -13,7 +13,10 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    // Bawaan sengaja bukan 'Laravel': berkas .env di server baru sering
+    // disalin apa adanya dari .env.example, dan judul tab yang berbunyi
+    // "Laravel" adalah gejala pertama yang terlihat pengguna.
+    'name' => env('APP_NAME', 'Aldef Tech Absensi'),
 
     /*
     |--------------------------------------------------------------------------
