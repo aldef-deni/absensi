@@ -166,6 +166,67 @@ class DemoAccountTest extends TestCase
         $this->assertAuthenticated();
     }
 
+    public function test_perintah_server_memulihkan_akun_super_admin(): void
+    {
+        // Peran ini tidak bisa diberikan lewat antarmuka mana pun, jadi tanpa
+        // jalur server sekali hilang berarti terkunci selamanya.
+        $this->artisan('absensi:superadmin', [
+            '--email' => 'pemulihan@aldeftech.test',
+            '--password' => 'rahasia12345',
+        ])->assertSuccessful();
+
+        $baru = User::withoutGlobalScopes()
+            ->where('email', 'pemulihan@aldeftech.test')
+            ->firstOrFail();
+
+        $this->assertSame(User::ROLE_SUPER_ADMIN, $baru->role);
+        $this->assertTrue($baru->is_active);
+        $this->assertTrue(Hash::check('rahasia12345', $baru->password));
+        $this->assertNull($baru->company_id,
+            'Super admin tidak boleh terikat satu perusahaan - itu justru mempersempit pandangannya');
+    }
+
+    public function test_perintah_server_mengangkat_akun_yang_sudah_ada(): void
+    {
+        $company = Company::create([
+            'name' => 'PT Turun Peran',
+            'slug' => 'pt-turun-peran',
+            'timezone' => 'Asia/Jakarta',
+            'status' => 'active',
+        ]);
+
+        $korban = User::create([
+            'company_id' => $company->id,
+            'name' => 'Pernah Super',
+            'email' => 'turun@aldeftech.test',
+            'password' => 'lamaSekali99',
+            'role' => User::ROLE_EMPLOYEE,
+            'is_active' => false,
+        ]);
+
+        $this->artisan('absensi:superadmin', [
+            '--email' => 'turun@aldeftech.test',
+            '--password' => 'rahasia12345',
+        ])->assertSuccessful();
+
+        $pulih = $korban->fresh();
+
+        $this->assertSame(User::ROLE_SUPER_ADMIN, $pulih->role);
+        $this->assertTrue($pulih->is_active, 'Akun nonaktif ikut diaktifkan kembali');
+        $this->assertNull($pulih->company_id);
+        $this->assertSame($korban->id, $pulih->id, 'Akun yang sama, bukan akun baru');
+    }
+
+    public function test_perintah_server_menolak_password_lemah(): void
+    {
+        $this->artisan('absensi:superadmin', [
+            '--email' => 'lemah@aldeftech.test',
+            '--password' => 'pendek',
+        ])->assertFailed();
+
+        $this->assertDatabaseMissing('users', ['email' => 'lemah@aldeftech.test']);
+    }
+
     public function test_layar_masuk_menyediakan_tombol_demo(): void
     {
         $html = $this->get('/login')->assertOk()->getContent();
