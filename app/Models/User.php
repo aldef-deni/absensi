@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\BelongsToCompany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -28,6 +29,7 @@ class User extends Authenticatable
         'phone',
         'is_active',
         'photo',
+        'face_registered_at',
     ];
 
     protected $hidden = [
@@ -41,6 +43,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_active' => 'boolean',
+            'face_registered_at' => 'datetime',
         ];
     }
 
@@ -129,6 +132,20 @@ class User extends Authenticatable
         );
 
         return 'data:image/svg+xml;base64,'.base64_encode($svg);
+    }
+
+    /**
+     * True jika user sudah mendaftarkan wajah (lewat aplikasi atau web).
+     */
+    public function faceRegistered(): bool
+    {
+        return $this->face_registered_at !== null
+            || $this->faceTemplate()->exists();
+    }
+
+    public function faceTemplate(): HasOne
+    {
+        return $this->hasOne(FaceTemplate::class);
     }
 
     public function attendances(): HasMany

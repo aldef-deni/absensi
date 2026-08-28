@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance/today', [AttendanceController::class, 'today'])->name('attendance.today');
 
     // Biometrik wajah
+    Route::get('/face', [FaceController::class, 'index'])->name('face.index')->middleware('can:manage-company');
+    Route::post('/face/{user}/reset', [FaceController::class, 'reset'])->name('face.reset');
     Route::get('/face/enroll', [FaceController::class, 'enroll'])->name('face.enroll');
     Route::get('/face/template', [FaceController::class, 'template'])->name('face.template');
     Route::post('/face/template', [FaceController::class, 'storeTemplate'])->name('face.template.store');

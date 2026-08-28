@@ -14,7 +14,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <a href="{{ route('home') }}" class="flex items-center">
                     <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"
-                        class="h-10 w-auto object-contain" />
+                        class="h-11 w-auto object-contain" />
                 </a>
                 <nav class="flex items-center gap-3">
                     <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-600 hover:text-primary-600 transition-colors px-3 py-2">Masuk</a>
@@ -32,6 +32,14 @@
 
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
                     <div class="max-w-2xl mx-auto">
+                        <!-- Logo brand, senada dengan header -->
+                        <div class="flex justify-center mb-9">
+                            <a href="{{ route('home') }}" class="inline-flex items-center">
+                                <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"
+                                    class="h-12 w-auto object-contain drop-shadow-sm" />
+                            </a>
+                        </div>
+
                         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 text-primary-700 text-xs font-semibold">
                             Platform SaaS Absensi Multi-Perusahaan
                         </span>

@@ -5,7 +5,7 @@
         <div class="h-16 shrink-0 flex items-center px-5 border-b border-gray-100">
             <a href="{{ route('dashboard') }}" class="flex items-center">
                 <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"
-                    class="h-9 w-auto object-contain" />
+                    class="h-12 w-auto object-contain" />
             </a>
         </div>
 
@@ -34,7 +34,7 @@
                 <span>Izin / Cuti</span>
             </a>
 
-            <a href="{{ route('face.enroll') }}" class="sidebar-link {{ request()->routeIs('face.*') ? 'sidebar-link-active' : '' }}">
+            <a href="{{ auth()->user()->isAdmin() ? route('face.index') : route('face.enroll') }}" class="sidebar-link {{ request()->routeIs('face.*') ? 'sidebar-link-active' : '' }}">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>

@@ -29,3 +29,9 @@ Thumbs.db
 # Upload pengguna & artefak preview lokal
 /public/uploads
 /.freebuff/
+
+# Arsip hasil pengemasan, bukan sumber. 66 MB di dalam git akan memperlambat
+# setiap clone dan setiap deploy, selamanya - riwayat git tidak bisa dikecilkan
+# tanpa menulis ulang seluruhnya.
+/absensi.zip
+*.zip

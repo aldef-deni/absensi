@@ -10,7 +10,7 @@
                     @if ($template)
                         <div class="mb-4 inline-flex items-center gap-2 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
                             ✓ Wajah sudah terdaftar sejak {{ $template->updated_at->translatedFormat('d M Y, H:i') }}.
-                            Kamu bisa memperbaruinya kapan saja.
+                            Pendaftaran hanya sekali — hubungi superadmin jika perlu reset.
                         </div>
                     @else
                         <div class="mb-4 inline-flex items-center gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">

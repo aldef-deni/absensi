@@ -106,7 +106,7 @@ class AttendanceLockTest extends TestCase
         $this->assertDatabaseHas('attendances', ['user_id' => $user->id, 'face_verified' => 1]);
     }
 
-    public function test_face_biometric_allows_check_in_without_template(): void
+    public function test_face_biometric_menolak_check_in_bila_wajah_belum_terdaftar(): void
     {
         $this->seed(DatabaseSeeder::class);
 
@@ -115,11 +115,19 @@ class AttendanceLockTest extends TestCase
 
         $user = User::where('email', 'maya@nusantara.id')->firstOrFail();
 
-        // Belum ada template -> check-in tetap boleh (flag wajah false).
+        // Sejak biometrik wajah diwajibkan, wajah yang belum terdaftar tidak
+        // boleh lolos. Sebelumnya check-in tetap diterima dengan flag wajah
+        // false - dan itu membuat penguncian biometriknya bisa dilewati
+        // sekadar dengan tidak pernah mendaftarkan wajah.
         $this->actingAs($user)->post('/attendance/check-in')
-            ->assertSessionHas('success');
+            ->assertSessionHas('error');
 
-        $this->assertDatabaseHas('attendances', ['user_id' => $user->id, 'face_verified' => 0]);
+        // Dibatasi ke hari ini: seeder sudah mengisi riwayat absensi
+        // sebelumnya untuk pengguna yang sama.
+        $this->assertDatabaseMissing('attendances', [
+            'user_id' => $user->id,
+            'date' => now()->toDateString(),
+        ]);
     }
 
     public function test_face_verify_endpoint_compares_descriptors(): void

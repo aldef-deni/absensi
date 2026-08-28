@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Exceptions\AttendanceCheckException;
 use App\Models\Attendance;
-use App\Models\FaceTemplate;
 use App\Models\Leave;
 use App\Models\Shift;
 use App\Models\User;
@@ -84,11 +83,13 @@ class AttendanceService
             }
         }
 
-        // --- Biometrik wajah: wajib cocok bila template sudah terdaftar ---
+        // --- Biometrik wajah: wajib sudah terdaftar & cocok saat check-in ---
         if ($company?->use_face_biometric) {
-            $hasTemplate = FaceTemplate::query()->where('user_id', $user->id)->exists();
+            if (! $user->faceRegistered()) {
+                throw AttendanceCheckException::faceNotRegistered();
+            }
 
-            if ($hasTemplate && ! $faceVerified) {
+            if (! $faceVerified) {
                 throw AttendanceCheckException::faceVerificationRequired();
             }
         }
