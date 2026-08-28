@@ -22,7 +22,7 @@ set -euo pipefail
 # ============================================================ Pengaturan
 
 APP_DIR="${APP_DIR:-/www/wwwroot/absensi.aldeftech.com}"
-BRANCH="${BRANCH:-master}"
+BRANCH="${BRANCH:-main}"
 
 # Pemilik berkas yang dipakai web server. aaPanel memakai "www", bukan
 # "www-data" seperti Ubuntu biasa. Salah di sini membuat unggahan gagal dengan
