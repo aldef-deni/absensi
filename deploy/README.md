@@ -169,7 +169,7 @@ Setelah membangun APK di `absensi-mobile` (`./gradlew assembleRelease`):
 
 ```bash
 # dari komputer, ganti <user>@<host> sesuai server
-scp ALDEF-Absensi-v1.4.apk \
+scp ALDEF-Absensi-v1.5.apk \
     <user>@<host>:/www/wwwroot/absensi.aldeftech.com/public/downloads/
 
 # di server, samakan kepemilikannya dengan berkas lain
