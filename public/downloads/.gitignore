@@ -1,0 +1,4 @@
+# APK diunggah langsung ke server, tidak lewat git (lihat MobileApkService).
+# Folder ini tetap ada di repo supaya sudah siap setelah deploy pertama.
+*
+!.gitignore

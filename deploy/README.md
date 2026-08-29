@@ -155,3 +155,34 @@ yang ditulis pengguna sejak cadangan diambil. Perintahnya dicetak di
 `storage/deploy-gagal`, tetapi keputusannya di tangan manusia.
 
 Pakai **salah satu** jalan saja, jangan keduanya.
+
+---
+
+## Mengunggah APK Android
+
+Halaman depan menampilkan kartu unduhan APK bila — dan hanya bila — ada berkas
+`*.apk` di `public/downloads/`. Berkas itu **tidak lewat git**: satu APK 25 MB
+per rilis akan menetap di riwayat selamanya dan memperlambat tiap clone maupun
+deploy. Jadi APK diunggah langsung ke server.
+
+Setelah membangun APK di `absensi-mobile` (`./gradlew assembleRelease`):
+
+```bash
+# dari komputer, ganti <user>@<host> sesuai server
+scp ALDEF-Absensi-v1.4.apk \
+    <user>@<host>:/www/wwwroot/absensi.aldeftech.com/public/downloads/
+
+# di server, samakan kepemilikannya dengan berkas lain
+chown www:www /www/wwwroot/absensi.aldeftech.com/public/downloads/*.apk
+chmod 644 /www/wwwroot/absensi.aldeftech.com/public/downloads/*.apk
+```
+
+Lewat aaPanel: **File** → masuk ke `public/downloads` → **Upload**.
+
+Halaman depan membaca sendiri nama, ukuran, versi (dari nama berkas), dan
+tanggalnya — tidak ada yang perlu diubah di kode saat rilis baru. Berkas APK
+lama sebaiknya dihapus: yang ditampilkan adalah yang paling baru diunggah.
+
+`auto-deploy.sh` memakai `git reset --hard` **tanpa** `git clean`, jadi APK yang
+sudah diunggah selamat dari deploy berikutnya. Bila suatu saat pindah ke Git
+Manager aaPanel, periksa sekali bahwa berkasnya masih ada sesudah deploy.
