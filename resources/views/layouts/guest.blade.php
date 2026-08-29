@@ -7,6 +7,10 @@
 
         <title>{{ config('app.name', 'Aldef Tech Absensi') }}</title>
 
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any">
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=public-sans:400,500,600,700&display=swap" rel="stylesheet" />

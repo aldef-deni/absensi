@@ -7,7 +7,9 @@
         <title>{{ config('app.name', 'ALDEF Absensi') }} — Absensi karyawan dengan GPS & verifikasi wajah</title>
         <meta name="description" content="Platform absensi karyawan multi-perusahaan: check-in dengan lock lokasi GPS dan verifikasi wajah, izin & cuti terpusat, laporan bulanan siap ekspor. Tersedia aplikasi Android.">
 
-        <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any">
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=public-sans:400,500,600,700,800&display=swap" rel="stylesheet" />
 
@@ -18,10 +20,10 @@
 
         {{-- ==================================================== Header --}}
         <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-md">
-            <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+            <div class="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
                 <a href="{{ route('home') }}" class="flex items-center">
                     <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"
-                        class="h-9 w-auto object-contain sm:h-10" />
+                        class="h-11 w-auto object-contain sm:h-14" />
                 </a>
 
                 <nav class="hidden items-center gap-8 md:flex">
@@ -429,7 +431,7 @@
         <footer class="border-t border-gray-100 bg-white">
             <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-5 py-8 sm:flex-row sm:px-8">
                 <div class="flex flex-col items-center gap-3 sm:flex-row sm:gap-5">
-                    <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" class="h-8 w-auto object-contain" />
+                    <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto object-contain" />
                     <p class="text-sm text-gray-400">&copy; {{ date('Y') }} {{ config('app.name') }}. Semua hak dilindungi.</p>
                 </div>
                 <nav class="flex items-center gap-6">
